@@ -1,11 +1,11 @@
 package com.example.lostandfound;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         vpAdaptor.addFragment(new homeFragment(),"Home");
         vpAdaptor.addFragment(new newPostFragment(),"Post");
-        vpAdaptor.addFragment(new thirdFragment(),"third");
+        vpAdaptor.addFragment(new MessegesContact(),"Message");
+        vpAdaptor.addFragment(new Profile1_fragment(),"Profile");
 
         viewPager.setAdapter(vpAdaptor);
 

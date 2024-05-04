@@ -1,12 +1,15 @@
 package com.example.lostandfound;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,7 @@ public class homeFragment extends Fragment {
     ArrayList<modelPosts> Posts;
     MyAdapterPosts myAdapter;
     RecyclerView rvPosts;
+    SearchView search_view;
 
 
     @Override
@@ -35,19 +39,72 @@ public class homeFragment extends Fragment {
 
         getDataFromDb();
 
+        search_view.setOnQueryTextListener(new  SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filter the dataset based on the search query
+                filterPosts(newText);
+                return true;
+            }
+        });
+
+
         return rootView;
     }
     protected void init(View rootView)
     {
         rvPosts = rootView.findViewById(R.id.rvPosts);
+        search_view=rootView.findViewById(R.id.search_view);
 
         Posts=new ArrayList<>();
 
         rvPosts.setHasFixedSize(true);
 
-        myAdapter = new MyAdapterPosts(Posts);
+//        myAdapter = new MyAdapterPosts(Posts);
+
+        myAdapter = new MyAdapterPosts(Posts, new MyAdapterPosts.OnItemClickListener() {
+            @Override
+            public void onItemClick(modelPosts post) {
+                Intent intent=new Intent(getContext(),viewPostDetails.class);
+                String userid=post.getUserId();
+                String itemName = post.getItemName();
+                String description = post.getDescription();
+                String location = post.getLocation();
+                String status=post.getStatus();
+                String messege = post.getMessege();
+                String itemPostImageUrl = post.getItemPostImageUrl();
+
+                Log.d("home fragment ","item name : "+itemName);
+
+                intent.putExtra("userid",userid);
+                intent.putExtra("itemName",itemName);
+                intent.putExtra("description",description);
+                intent.putExtra("status",status);
+                intent.putExtra("location",location);
+                intent.putExtra("messege",messege);
+                intent.putExtra("itemPostImageUrl",itemPostImageUrl);
+
+                startActivity(intent);
+            }
+        });
         rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvPosts.setAdapter(myAdapter);
+    }
+    private void filterPosts(String query) {
+        ArrayList<modelPosts> filteredList = new ArrayList<>();
+        for (modelPosts post : Posts) {
+            // Check if the post's username or item name contains the search query
+            if (post.getItemName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(post);
+            }
+        }
+        // Update the RecyclerView adapter with the filtered list
+        myAdapter.setFilteredPosts(filteredList);
     }
     protected void getDataFromDb()
     {

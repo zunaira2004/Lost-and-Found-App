@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class loginActivity extends AppCompatActivity {
     Button btnSignup,btnLogin;
     TextInputEditText etEmailLogin, etPasswordLogin;
     FirebaseAuth firebaseAuth;
+    ProgressBar progressBarLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,10 +65,18 @@ public class loginActivity extends AppCompatActivity {
         etEmailLogin=findViewById(R.id.etEmailLogin);
         etPasswordLogin=findViewById(R.id.etPasswordLogin);
 
+        progressBarLogin=findViewById(R.id.progressBarLogin);
+
         firebaseAuth=FirebaseAuth.getInstance();
     }
     protected void checkLogin()
     {
+        progressBarLogin.setVisibility(View.VISIBLE);
+
+        btnLogin.setEnabled(false);
+        etEmailLogin.setEnabled(false);
+        etEmailLogin.setEnabled(false);
+
         String email = etEmailLogin.getText().toString().trim();
         String password = etPasswordLogin.getText().toString();
 
@@ -77,6 +87,11 @@ public class loginActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressBarLogin.setVisibility(View.GONE);
+                            btnLogin.setEnabled(true);
+                            etEmailLogin.setEnabled(true);
+                            etEmailLogin.setEnabled(true);
+
                             if (task.isSuccessful()) {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 startActivity(new Intent(loginActivity.this, MainActivity.class));

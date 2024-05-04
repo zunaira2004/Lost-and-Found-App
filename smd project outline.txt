@@ -8,12 +8,13 @@ chat box
 validation screen
 
 total xml files:
-splash screen
-sign up
-login
+splash screen >
+sign up >
+login >
+Filter>
 forgot password (optional)
-main screen (recycler view, hamburger menu, search bar)
-details of item
+main screen (recycler view, hamburger menu, search bar)>
+details of item>
 found items
 lost items
 user profile details

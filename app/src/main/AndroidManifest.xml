@@ -14,6 +14,12 @@
         android:theme="@style/Theme.LostAndFound"
         tools:targetApi="31"
         >
+        <activity android:name=".MessegesContact"
+            android:exported="false"/>
+        <activity android:name=".chatBoxActivity"
+            android:exported="false"/>
+        <activity android:name=".viewPostDetails"
+            android:exported="false"/>
         <activity android:name=".MyAdapterPosts"
             android:exported="false"/>
         <activity android:name=".signupActivity"

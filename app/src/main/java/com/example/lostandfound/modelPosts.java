@@ -13,8 +13,9 @@ public class modelPosts {
     private String postTime;
     private String itemPicUrl;
     private String PostedByPicUrl;
+    private String userId;
     public modelPosts(){}
-    public modelPosts(String itemName,String postedBy,String description,String messege,String status,String location,String PostedByPicUrl,String itemPicUrl) {
+    public modelPosts(String itemName,String postedBy,String description,String messege,String status,String location,String PostedByPicUrl,String userId,String itemPicUrl) {
         this.itemName=itemName;
         this.postedBy=postedBy;
         this.description=description;
@@ -23,11 +24,21 @@ public class modelPosts {
         this.location=location;
         this.PostedByPicUrl=PostedByPicUrl;
         this.itemPicUrl=itemPicUrl;
+        this.userId=userId;
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.postTime = now.format(formatter);
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getPostedBy() {
         return postedBy;
     }

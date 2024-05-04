@@ -105,6 +105,13 @@
                 android:padding="5dp"
                 tools:ignore="RtlHardcoded"
                 />
+            <ProgressBar
+                android:id="@+id/progressBarLogin"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"

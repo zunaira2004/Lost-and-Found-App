@@ -7,7 +7,7 @@ public class User {
     String password;
     String id;
     private String ProfilePicUrl;
-
+    User(){}
 
     public String getProfilePicUrl() {
         return ProfilePicUrl;

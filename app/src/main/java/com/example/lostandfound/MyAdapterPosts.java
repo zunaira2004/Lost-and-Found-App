@@ -18,6 +18,12 @@ public class MyAdapterPosts extends RecyclerView.Adapter<MyAdapterPosts.ViewHold
 
     ArrayList<modelPosts> Posts;
     private ViewHolder selectedViewHolder;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(modelPosts post);
+    }
+
     MyAdapterPosts()
     {
         Posts=new ArrayList<>();
@@ -26,6 +32,11 @@ public class MyAdapterPosts extends RecyclerView.Adapter<MyAdapterPosts.ViewHold
     {
         Posts=P;
     }
+    public MyAdapterPosts(ArrayList<modelPosts> P, OnItemClickListener listener) {
+        this.Posts = P;
+        this.listener = listener;
+    }
+
 
     public void setSelectedViewHolder(ViewHolder viewHolder) {
         this.selectedViewHolder = viewHolder;
@@ -69,8 +80,13 @@ public class MyAdapterPosts extends RecyclerView.Adapter<MyAdapterPosts.ViewHold
         return Posts.size();
     }
 
+    public void setFilteredPosts(ArrayList<modelPosts> filteredPosts) {
+        this.Posts = filteredPosts;
+        notifyDataSetChanged(); // Notify RecyclerView of dataset change
+    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivImage, ivProfilePost;
         TextView tvItemName,tvNameProfile, tvStatus,tvLocation,tvPostTime;
@@ -78,6 +94,18 @@ public class MyAdapterPosts extends RecyclerView.Adapter<MyAdapterPosts.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             init();
+
+            btnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(Posts.get(position));
+                        }
+                    }
+                }
+            });
         }
         protected void init()
         {
@@ -93,10 +121,10 @@ public class MyAdapterPosts extends RecyclerView.Adapter<MyAdapterPosts.ViewHold
 
         }
 
+
         @Override
         public void onClick(View v) {
 
-    }
-
+        }
     }
 }

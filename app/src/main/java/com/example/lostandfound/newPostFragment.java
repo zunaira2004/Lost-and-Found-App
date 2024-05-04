@@ -153,6 +153,7 @@ public class newPostFragment extends Fragment {
                     if (snapshot.exists()) {
                         String fullName = snapshot.child("fullName").getValue(String.class);
                         String profileUrl = snapshot.child("profilePicUrl").getValue(String.class);
+                        String id = snapshot.child("id").getValue(String.class);
 
 
                         if (imageUri != null) {
@@ -170,7 +171,7 @@ public class newPostFragment extends Fragment {
 
                                                 String postUrl = downloadUri.toString();
                                                 DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference().child("Posts").push();
-                                                modelPosts newPost = new modelPosts(itemName, fullName, description, messege, status, location,profileUrl,postUrl);
+                                                modelPosts newPost = new modelPosts(itemName, fullName, description, messege, status, location,profileUrl,id,postUrl);
 
                                                 postsRef.setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
@@ -185,6 +186,25 @@ public class newPostFragment extends Fragment {
                                                             btnPost.setEnabled(true);
                                                             btnGallery.setEnabled(true);
                                                             Toast.makeText(getActivity(), "Post added successfully", Toast.LENGTH_SHORT).show();
+
+                                                            etItemName.setText("");
+                                                            etDescription.setText("");
+                                                            etLocation.setText("");
+                                                            etMessege.setText("");
+
+                                                            ivItemPic.setImageResource(R.drawable.profile);
+
+
+                                                            //to be fixed
+
+//                                                            FragmentManager fragmentManager = getSupportFragmentManager();
+//                                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                                                            Fragment newFragment = new NewFragment();
+//                                                            fragmentTransaction.replace(R.id.fragment_container, newFragment);
+//                                                            fragmentTransaction.addToBackStack(null); // Optional: add transaction to back stack
+//                                                            fragmentTransaction.commit();
+
 
                                                         } else {
                                                             Toast.makeText(getActivity(), "Failed to add post", Toast.LENGTH_SHORT).show();

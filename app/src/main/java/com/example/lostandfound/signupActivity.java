@@ -155,8 +155,8 @@ public class signupActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Uri downloadUri) {
                                                 String profileUrl = downloadUri.toString();
-                                                String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(); // Get the unique user ID
-                                                User userData = new User(userId, fullName, email, phone, password, profileUrl); // Create user data object
+                                                String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+                                                User userData = new User(userId, fullName, email, phone, password, profileUrl);
                                                 signinDb.child(userId).setValue(userData);
 
                                                 Intent intent =new Intent(signupActivity.this,loginActivity.class);
