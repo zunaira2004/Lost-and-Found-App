@@ -1,0 +1,21 @@
+splash screen
+sign up screen
+login screen
+posts screen (main)
+your profile
+your posts
+chat box
+validation screen
+
+total xml files:
+splash screen
+sign up
+login
+forgot password (optional)
+main screen (recycler view, hamburger menu, search bar)
+details of item
+found items
+lost items
+user profile details
+my posts
+sign out
